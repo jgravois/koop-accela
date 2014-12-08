@@ -1,0 +1,30 @@
+{
+  "name": "koop-accela",
+  "version": "0.0.1",
+  "description": "An Accela wrapper for koop ",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/"
+  },
+  "dependencies": {
+    "koop-server": "~0.1.4",
+    "config": "~0.4.35",
+    "ejs": "~1.0.0",
+    "node.extend": "~1.0.10",
+    "lodash": "~2.4.1"
+  },
+  "author": {
+    "name": "John Gravois"
+  },
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "supertest": "~0.11.0",
+    "should": "~3.3.1",
+    "yaml": "~0.2.3"
+  },
+  "readme": "# koop-accela\n\n## A simple Accela provider for Koop\n\n## For Developing\n\n## For use within koop\n\n  ```\n    # clone Koop:\n    git clone git@github.com:Esri/koop.git\n    cd koop\n\n    # install depencencies \n    npm install \n\n    # install koop-accela\n    npm install https://github.com/jgravois/koop-accela/tarball/master\n\n    # start the koop server\n    node server.js \n  ```\n",
+  "readmeFilename": "README.md"
+}
