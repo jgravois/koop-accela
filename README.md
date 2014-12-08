@@ -14,7 +14,7 @@
     # install depencencies
     npm install
 
-    # install koop-citybikes
+    # install koop-accela
     npm install https://github.com/jgravois/koop-accela/tarball/master
 
     # start the koop server
