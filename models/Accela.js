@@ -23,12 +23,15 @@ return featureCollection?
 
 BaseModel = require('koop-server/lib/BaseModel.js'),
 _ = require('lodash'),
+proj4 = require('proj4'),
 request = require('request');
 
 var Accela = function(koop) {  //maybe accela too?
 
   var accela = {};
   accela.__proto__ = BaseModel(accela);
+
+  proj4.defs('EPSG:2264', 'PROJCS["NAD83 / North Carolina (ftUS)",GEOGCS["NAD83",DATUM["North_American_Datum_1983",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6269"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4269"]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER["standard_parallel_1",36.16666666666666],PARAMETER["standard_parallel_2",34.33333333333334],PARAMETER["latitude_of_origin",33.75],PARAMETER["central_meridian",-79],PARAMETER["false_easting",2000000],PARAMETER["false_northing",0],UNIT["US survey foot",0.3048006096012192,AUTHORITY["EPSG","9003"]],AXIS["X",EAST],AXIS["Y",NORTH],AUTHORITY["EPSG","2264"]]');
 
   accela.find = function(item, options, callback) {
     //better to round robin between /api/ and /api/3/ ?
@@ -65,12 +68,17 @@ var Accela = function(koop) {  //maybe accela too?
 
   function geoJSONify(item) {
     var workItem = item;
+
+    var coords = proj4( "EPSG:2264", 'WGS84' ).forward([parseInt(workItem.X_COORD), parseInt(workItem.Y_COORD)]);
+    var latitude = coords[0];
+    var longitude = coords[1];
+
     return {
       "type": "Feature",
       "geometry": {
         "type": "Point",
         //need to reproject these State Plane coordinates to WGS84
-        "coordinates": [workItem.X_COORD, workItem.Y_COORD]
+        "coordinates": [latitude, longitude]
         //"coordinates": [-110, 45]
       },
       //"properties": workItem,
